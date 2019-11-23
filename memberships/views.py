@@ -153,9 +153,8 @@ def cancelSubscription(request):
         messages.info(request, "You dont have an active membership")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    sub = stripe.Subscription.retrieve(user_sub.stripe_subscription_id)
-    sub.delete()
-
+    stripe.Subscription.delete(user_sub.stripe_subscription_id)
+    
     user_sub.active = False
     user_sub.save()
 
